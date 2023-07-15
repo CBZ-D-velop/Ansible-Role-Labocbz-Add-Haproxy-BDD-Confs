@@ -1,0 +1,22 @@
+---
+# Don't forget to keep this file updated
+# molecule/<scenario>/verify.yml
+- name: "Verify"
+  hosts: "all"
+  gather_facts: false
+  tasks:
+
+    - name: "Get HAProxy service current state"
+      register: haproxy_service_status
+      failed_when: not haproxy_service_status.status.ActiveState == 'active'
+      ansible.builtin.systemd:
+        name: "haproxy"
+
+    - name: "Check HAProxy confs files"
+      loop: "{{ inv_haproxy_configurations }}"
+      loop_control:
+        loop_var: configuration
+      register: file_check
+      failed_when: not file_check.stat.exists
+      ansible.builtin.stat:
+        path: "{{ inv_haproxy_confs_path }}/{{ configuration.name }}.cfg"
