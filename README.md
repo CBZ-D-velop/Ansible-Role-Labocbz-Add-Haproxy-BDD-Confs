@@ -18,6 +18,19 @@
 
 An Ansible role create and add HAProxy BDD confs to your server.
 
+
+This role is a variant of the previous one, but it focuses on creating HAProxy configurations tailored for database services.
+
+Similar to the previous role, this variant also operates through a set of YAML-based configuration objects to define different HAProxy configurations for various database services.
+
+For each database service, the role allows administrators to specify a unique name. The frontend configuration includes essential details such as descriptions, bind addresses, and ports. Notably, it uses the TCP mode instead of the HTTP/HTTPS mode used for web services.
+
+The backend configuration offers options like load balancing mode (e.g., round-robin, least connections), TCP keep-alive (tcpka), and defining multiple backend servers. Each backend server represents a database server to which HAProxy will forward requests.
+
+In the case of clustered databases, administrators can define multiple backend servers for failover scenarios. The role includes a "backup" option for certain servers, ensuring that they serve as backup nodes to provide high availability in case the primary servers become unavailable.
+
+In summary, this role extends the capabilities of the previous HAProxy role to handle database services specifically. By leveraging YAML-based configuration objects, administrators can easily define various parameters to create customized HAProxy configurations for their database setups. This flexibility enables the role to support a wide range of database clustering and failover scenarios, providing robust and high-performing load balancing for database services.
+
 ## Folder structure
 
 By default Ansible will look in each directory within a role for a main.yml file for relevant content (also man.yml and main):
