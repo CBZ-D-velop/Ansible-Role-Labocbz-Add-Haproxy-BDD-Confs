@@ -73,5 +73,6 @@
         haproxy_listen_stats_uri: "{{ inv_haproxy_listen_stats_uri }}"
         haproxy_stats_login: "{{ inv_haproxy_stats_login }}"
         haproxy_stats_password: "{{ inv_haproxy_stats_password }}"
+        haproxy_listen_stats_https: "{{ inv_haproxy_listen_stats_https }}"
       ansible.builtin.include_role:
         name: "labocbz.install_haproxy"

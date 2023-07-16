@@ -18,3 +18,5 @@ inv_haproxy_listen_stats_port: 8282
 inv_haproxy_listen_stats_uri: "haproxy/stats"
 inv_haproxy_stats_login: "joe"
 inv_haproxy_stats_password: "passwd"
+inv_haproxy_listen_stats_https: false
+

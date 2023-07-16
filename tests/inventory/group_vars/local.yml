@@ -1,1 +1,63 @@
 ---
+
+inv_haproxy_confs_path: "/etc/haproxy/conf.d"
+
+inv_haproxy_configurations:
+  - name: "my.database.domain.tld"
+    frontend:
+      description: "My first database with TCP frontend address"
+      bind: "127.0.0.1:10030"
+      pem: ""
+      mode: "tcp"
+    backend:
+      balance: leastconn
+      options:
+        - tcpka
+      servers:
+        - name: "backend-server-1"
+          addresse: "127.0.0.1"
+          port: "3306"
+
+  - name: "my.cluster.database.domain.tld"
+    frontend:
+      description: "My first cluster database with TCP frontend address"
+      bind: "127.0.0.1:10040"
+      pem: ""
+      mode: "tcp"
+    backend:
+      balance: roundrobin
+      options:
+        - tcpka
+      servers:
+        - name: "backend-server-2-1"
+          addresse: "127.0.0.1"
+          port: "3306"
+        - name: "backend-server-2-2"
+          addresse: "127.0.0.1"
+          port: "3306"
+        - name: "backend-server-2-3"
+          addresse: "127.0.0.1"
+          port: "3306"
+
+  - name: "my.clusterFailover.database.domain.tld"
+    frontend:
+      description: "My first cluster database with TCP frontend address and FAILOVER"
+      bind: "127.0.0.1:10040"
+      pem: ""
+      mode: "tcp"
+    backend:
+      balance: roundrobin
+      options:
+        - tcpka
+      servers:
+        - name: "backend-server-3-1"
+          addresse: "127.0.0.1"
+          port: "3306"
+        - name: "backend-server-3-2"
+          addresse: "127.0.0.1"
+          port: "3306"
+          backup: true
+        - name: "backend-server-3-3"
+          addresse: "127.0.0.1"
+          port: "3306"
+          backup: true
