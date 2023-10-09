@@ -10,6 +10,7 @@ driver:
 platforms:
   - name: "molecule-local-instance-1-add-haproxy-bdd-confs"
     image: "robincbz/debian-11-ansible:latest"
+    command: "/sbin/init"
     #published_ports:
     #  - "0.0.0.0:8181:8181/tcp"
     dockerfile: "Dockerfile"
@@ -35,7 +36,7 @@ provisioner:
       group_vars: "../../tests/inventory/group_vars/"
       host_vars: "../../tests/inventory/host_vars/"
   options:
-    extra-vars: "@./../../tests/tower/tower.yml"
+    extra-vars: "@./tests/tower/tower.yml"
   log: ${MOLECULE_ANSIBLE_LOG:-true}
   env:
     ANSIBLE_CONFIG: "../../.ansible.cfg"
@@ -57,6 +58,7 @@ scenario:
   test_sequence:
     - "destroy"
     - "syntax"
+    - "dependency"
     - "create"
     - "prepare"
     - "converge"
