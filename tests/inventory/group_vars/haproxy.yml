@@ -14,8 +14,10 @@ inv_haproxy_error_files:
   - "504"
 
 inv_haproxy_listen_stats: true
-inv_haproxy_listen_stats_port: 8282
+inv_haproxy_listen_stats_https: true
+inv_haproxy_listen_stats_cert: "{{ inv_haproxy_ssl_path }}/my-haproxy-server.domain.tld/my-haproxy-server.domain.tld.pem.crt"
+inv_haproxy_listen_stats_key: "{{ inv_haproxy_ssl_path }}/my-haproxy-server.domain.tld/my-haproxy-server.domain.tld.pem.key"
+inv_haproxy_listen_stats_port: 8181
 inv_haproxy_listen_stats_uri: "haproxy/stats"
 inv_haproxy_stats_login: "joe"
 inv_haproxy_stats_password: "passwd"
-inv_haproxy_listen_stats_https: false

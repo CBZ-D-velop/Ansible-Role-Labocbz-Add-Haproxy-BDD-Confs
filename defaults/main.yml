@@ -1,12 +1,15 @@
 ---
 haproxy_confs_path: "/etc/haproxy/conf.d"
+haproxy_ssl_path: "/etc/haproxy/ssl"
 
 haproxy_configurations:
   - name: "my.database.domain.tld"
     frontend:
       description: "My first database with TCP frontend address"
       bind: "127.0.0.1:10030"
-      pem: ""
+      ssl: true
+      crt: "{{ haproxy_ssl_path }}/my.https.database.domain.tld/my.https.database.domain.tld.pem.crt"
+      key: "{{ haproxy_ssl_path }}/my.https.database.domain.tld/my.https.database.domain.tld.pem.key"
       mode: "tcp"
     backend:
       balance: leastconn
@@ -21,7 +24,6 @@ haproxy_configurations:
     frontend:
       description: "My first cluster database with TCP frontend address"
       bind: "127.0.0.1:10040"
-      pem: ""
       mode: "tcp"
     backend:
       balance: roundrobin
@@ -42,7 +44,6 @@ haproxy_configurations:
     frontend:
       description: "My first cluster database with TCP frontend address and FAILOVER"
       bind: "127.0.0.1:10040"
-      pem: ""
       mode: "tcp"
     backend:
       balance: roundrobin
