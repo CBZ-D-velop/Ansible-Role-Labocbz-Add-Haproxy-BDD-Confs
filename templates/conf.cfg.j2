@@ -10,7 +10,11 @@ frontend {{ configuration.name }}-frontend
     description {{ configuration.frontend.description }}
     {% endif %}
     mode {{ configuration.frontend.mode }}
-    bind {{ configuration.frontend.bind }}
+    {% if configuration.frontend.ssl | default(false) %}
+    bind "{{ configuration.frontend.bind }}" ssl crt {{ configuration_fullchain }}
+    {% else %}
+    bind "{{ configuration.frontend.bind }}"
+    {% endif %}
     #
     default_backend {{ configuration.name }}-backend
 

@@ -115,13 +115,16 @@ Some vars a required to run this role:
 ```YAML
 ---
 haproxy_confs_path: "/etc/haproxy/conf.d"
+haproxy_ssl_path: "/etc/haproxy/ssl"
 
 haproxy_configurations:
   - name: "my.database.domain.tld"
     frontend:
       description: "My first database with TCP frontend address"
       bind: "127.0.0.1:10030"
-      pem: ""
+      ssl: true
+      crt: "{{ haproxy_ssl_path }}/my.https.database.domain.tld/my.https.database.domain.tld.pem.crt"
+      key: "{{ haproxy_ssl_path }}/my.https.database.domain.tld/my.https.database.domain.tld.pem.key"
       mode: "tcp"
     backend:
       balance: leastconn
@@ -136,7 +139,6 @@ haproxy_configurations:
     frontend:
       description: "My first cluster database with TCP frontend address"
       bind: "127.0.0.1:10040"
-      pem: ""
       mode: "tcp"
     backend:
       balance: roundrobin
@@ -157,7 +159,6 @@ haproxy_configurations:
     frontend:
       description: "My first cluster database with TCP frontend address and FAILOVER"
       bind: "127.0.0.1:10040"
-      pem: ""
       mode: "tcp"
     backend:
       balance: roundrobin
@@ -175,7 +176,6 @@ haproxy_configurations:
           addresse: "127.0.0.1"
           port: "3306"
           backup: true
-
 ```
 
 The best way is to modify these vars by copy the ./default/main.yml file into the ./vars and edit with your personnals requirements.
@@ -188,13 +188,16 @@ In order to surchage vars, you have multiples possibilities but for mains cases 
 # From inventory
 ---
 inv_haproxy_confs_path: "/etc/haproxy/conf.d"
+inv_haproxy_ssl_path: "/etc/haproxy/ssl"
 
 inv_haproxy_configurations:
   - name: "my.database.domain.tld"
     frontend:
       description: "My first database with TCP frontend address"
       bind: "127.0.0.1:10030"
-      pem: ""
+      ssl: true
+      crt: "{{ inv_haproxy_ssl_path }}/my.https.database.domain.tld/my.https.database.domain.tld.pem.crt"
+      key: "{{ inv_haproxy_ssl_path }}/my.https.database.domain.tld/my.https.database.domain.tld.pem.key"
       mode: "tcp"
     backend:
       balance: leastconn
@@ -209,7 +212,6 @@ inv_haproxy_configurations:
     frontend:
       description: "My first cluster database with TCP frontend address"
       bind: "127.0.0.1:10040"
-      pem: ""
       mode: "tcp"
     backend:
       balance: roundrobin
@@ -230,7 +232,6 @@ inv_haproxy_configurations:
     frontend:
       description: "My first cluster database with TCP frontend address and FAILOVER"
       bind: "127.0.0.1:10040"
-      pem: ""
       mode: "tcp"
     backend:
       balance: roundrobin
@@ -278,6 +279,18 @@ Here you can put your change to keep a trace of your work and decisions.
 ### 2023-05-04: First Init
 
 * First init of this role with the bootstrap_role playbook by Lord Robin Crombez
+
+### 2023-10-06: New CICD, new Images
+
+* New CI/CD scenario name
+* Molecule now use remote Docker image by Lord Robin Crombez
+* Molecule now use custom Docker image in CI/CD by env vars
+* New CICD with needs and optimization
+
+### 2023-10-10: New SSL handling
+
+* You can now provide custom key and certs
+* Use the latest version of HAproxy role
 
 ## Authors
 
