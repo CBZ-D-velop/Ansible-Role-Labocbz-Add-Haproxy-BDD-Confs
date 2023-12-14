@@ -1,15 +1,18 @@
 ---
-haproxy_confs_path: "/etc/haproxy/conf.d"
-haproxy_ssl_path: "/etc/haproxy/ssl"
+add_haproxy_bdd_confs_confs_path: "/etc/haproxy/conf.d"
+add_haproxy_bdd_confs_ssl_path: "/etc/haproxy/ssl"
 
-haproxy_configurations:
+add_haproxy_bdd_confs_haproxy_group: "haproxy"
+add_haproxy_bdd_confs_haproxy_user: "haproxy"
+
+add_haproxy_bdd_confs_configurations:
   - name: "my.database.domain.tld"
     frontend:
       description: "My first database with TCP frontend address"
       bind: "127.0.0.1:10030"
       ssl: true
-      crt: "{{ haproxy_ssl_path }}/my.https.database.domain.tld/my.https.database.domain.tld.pem.crt"
-      key: "{{ haproxy_ssl_path }}/my.https.database.domain.tld/my.https.database.domain.tld.pem.key"
+      crt: "{{ add_haproxy_bdd_confs_ssl_path }}/my.https.database.domain.tld/my.https.database.domain.tld.pem.crt"
+      key: "{{ add_haproxy_bdd_confs_ssl_path }}/my.https.database.domain.tld/my.https.database.domain.tld.pem.key"
       mode: "tcp"
     backend:
       balance: leastconn
