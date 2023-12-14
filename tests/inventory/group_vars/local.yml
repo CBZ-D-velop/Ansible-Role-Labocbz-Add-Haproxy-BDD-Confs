@@ -1,17 +1,20 @@
 ---
+inv_prepare_host_system_users:
+  - login: "haproxy"
+    group: "haproxy"
 
-inv_haproxy_confs_path: "/etc/haproxy/conf.d"
-inv_haproxy_ssl_path: "/etc/haproxy/ssl"
+inv_add_haproxy_bdd_confs_confs_path: "/etc/haproxy/conf.d"
+inv_add_haproxy_bdd_confs_ssl_path: "/etc/haproxy/ssl"
 
-inv_haproxy_configurations:
+inv_add_haproxy_bdd_confs_configurations:
   - name: "my.https.database.domain.tld"
     frontend:
       description: "My first database with TCP frontend address and HTTPS"
       bind: "127.0.0.1:10030"
       mode: "tcp"
       ssl: true
-      crt: "{{ inv_haproxy_ssl_path }}/my.https.database.domain.tld/my.https.database.domain.tld.pem.crt"
-      key: "{{ inv_haproxy_ssl_path }}/my.https.database.domain.tld/my.https.database.domain.tld.pem.key"
+      crt: "{{ inv_add_haproxy_bdd_confs_ssl_path }}/my.https.database.domain.tld/my.https.database.domain.tld.pem.crt"
+      key: "{{ inv_add_haproxy_bdd_confs_ssl_path }}/my.https.database.domain.tld/my.https.database.domain.tld.pem.key"
     backend:
       balance: leastconn
       options:
