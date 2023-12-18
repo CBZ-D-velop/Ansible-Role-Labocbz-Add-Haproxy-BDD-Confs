@@ -265,14 +265,14 @@ inv_add_haproxy_bdd_confs_configurations:
 To run this role, you can copy the molecule/default/converge.yml playbook and add it into your playbook:
 
 ```YAML
-- name: "Include labocbz.add_add_haproxy_bdd_confs_bdd_confs"
-    tags:
-    - "labocbz.add_add_haproxy_bdd_confs_bdd_confs"
-    vars:
+- name: "Include labocbz.add_haproxy_bdd_confs"
+  tags:
+    - "labocbz.add_haproxy_bdd_confs"
+  vars:
     add_haproxy_bdd_confs_confs_path: "{{ inv_add_haproxy_bdd_confs_confs_path }}"
     add_haproxy_bdd_confs_configurations: "{{ inv_add_haproxy_bdd_confs_configurations }}"
-    ansible.builtin.include_role:
-    name: "labocbz.add_add_haproxy_bdd_confs_bdd_confs"
+  ansible.builtin.include_role:
+    name: "labocbz.add_haproxy_bdd_confs"
 ```
 
 ## Architectural Decisions Records

@@ -1,7 +1,7 @@
 galaxy_info:
   author: "Lord Robin Crombez"
   namespace: "labocbz"
-  role_name: "add_add_haproxy_bdd_confs_bdd_confs"
+  role_name: "add_haproxy_bdd_confs"
   description: "An Ansible role create and add HAProxy BDD confs to your server."
   company: "Labo-CBZ"
 
