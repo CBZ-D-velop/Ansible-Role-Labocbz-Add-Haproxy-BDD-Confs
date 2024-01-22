@@ -32,7 +32,11 @@ inv_add_haproxy_bdd_confs_configurations:
     backend:
       balance: roundrobin
       options:
-        - tcpka
+        - "tcpka"
+        - "tcp-check"
+      tcp_check:
+        - "send info\\ replication\\r\\n"
+        - "expect string role:master"
       servers:
         - name: "backend-server-2-1"
           addresse: "127.0.0.1"

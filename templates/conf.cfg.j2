@@ -29,6 +29,12 @@ backend {{ configuration.name }}-backend
     {% endfor %}
     {% endif %}
     #
+    {% if configuration.backend.tcp_check | default(false) %}
+    {% for check in configuration.backend.tcp_check %}
+    tcp-check {{ check }}
+    {% endfor %}
+    {% endif %}
+    #
     {% for server in configuration.backend.servers %}
     server {{ server.name }} {{ server.addresse }}:{{ server.port }} check inter 10s fall 5 rise 5{% if server.backup is defined %}{% if server.backup == true %} backup{% endif %}{% endif %}
     
