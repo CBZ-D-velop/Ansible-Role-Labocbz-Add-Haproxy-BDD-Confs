@@ -146,7 +146,11 @@ add_haproxy_bdd_confs_configurations:
     backend:
       balance: roundrobin
       options:
-        - tcpka
+        - "tcpka"
+        - "tcp-check"
+      tcp_check:
+        - "send info\\ replication\\r\\n"
+        - "expect string role:master"
       servers:
         - name: "backend-server-2-1"
           addresse: "127.0.0.1"
@@ -190,18 +194,22 @@ In order to surchage vars, you have multiples possibilities but for mains cases 
 ```YAML
 # From inventory
 ---
+inv_prepare_host_system_users:
+  - login: "haproxy"
+    group: "haproxy"
+
 inv_add_haproxy_bdd_confs_confs_path: "/etc/haproxy/conf.d"
 inv_add_haproxy_bdd_confs_ssl_path: "/etc/haproxy/ssl"
 
 inv_add_haproxy_bdd_confs_configurations:
-  - name: "my.database.domain.tld"
+  - name: "my.https.database.domain.tld"
     frontend:
-      description: "My first database with TCP frontend address"
+      description: "My first database with TCP frontend address and HTTPS"
       bind: "127.0.0.1:10030"
+      mode: "tcp"
       ssl: true
       crt: "{{ inv_add_haproxy_bdd_confs_ssl_path }}/my.https.database.domain.tld/my.https.database.domain.tld.pem.crt"
       key: "{{ inv_add_haproxy_bdd_confs_ssl_path }}/my.https.database.domain.tld/my.https.database.domain.tld.pem.key"
-      mode: "tcp"
     backend:
       balance: leastconn
       options:
@@ -219,15 +227,19 @@ inv_add_haproxy_bdd_confs_configurations:
     backend:
       balance: roundrobin
       options:
-        - tcpka
+        - "tcpka"
+        - "tcp-check"
+      tcp_check:
+        - "send info\\ replication\\r\\n"
+        - "expect string role:master"
       servers:
         - name: "backend-server-2-1"
           addresse: "127.0.0.1"
           port: "3306"
-        - name: "backend-server-2-1"
+        - name: "backend-server-2-2"
           addresse: "127.0.0.1"
           port: "3306"
-        - name: "backend-server-3-1"
+        - name: "backend-server-2-3"
           addresse: "127.0.0.1"
           port: "3306"
 
@@ -241,17 +253,18 @@ inv_add_haproxy_bdd_confs_configurations:
       options:
         - tcpka
       servers:
-        - name: "backend-server-2-1"
-          addresse: "127.0.0.1"
-          port: "3306"
-        - name: "backend-server-2-1"
-          addresse: "127.0.0.1"
-          port: "3306"
-          backup: true
         - name: "backend-server-3-1"
           addresse: "127.0.0.1"
           port: "3306"
+        - name: "backend-server-3-2"
+          addresse: "127.0.0.1"
+          port: "3306"
           backup: true
+        - name: "backend-server-3-3"
+          addresse: "127.0.0.1"
+          port: "3306"
+          backup: true
+
 ```
 
 ```YAML
@@ -298,6 +311,10 @@ Here you can put your change to keep a trace of your work and decisions.
 ### 2023-12-14: System users
 
 * Role can now use system users and address groups
+
+### 2024-01-22: Added TCP CHECK
+
+* You can now define custom instruction for TCP check, like REDIS MASTER
 
 ## Authors
 
