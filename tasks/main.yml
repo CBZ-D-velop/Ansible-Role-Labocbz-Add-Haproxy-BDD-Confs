@@ -7,7 +7,7 @@
       ansible.builtin.systemd:
         name: "haproxy"
 
-    - name: "Check if {{ add_haproxy_bdd_confs__confs_path }} directory exist"
+    - name: "Check if conf path directory exist"
       register: host_working_folder
       failed_when: not host_working_folder.stat.exists
       ansible.builtin.stat:
