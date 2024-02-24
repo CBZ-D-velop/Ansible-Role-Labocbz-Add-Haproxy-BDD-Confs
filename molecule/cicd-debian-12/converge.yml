@@ -1,6 +1,6 @@
 ---
 - name: "Converge"
-  hosts: "cicd-debian-11"
+  hosts: "cicd-debian-12"
   tasks:
 
     - name: "Include labocbz.add_haproxy_bdd_confs"

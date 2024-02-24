@@ -1,19 +1,13 @@
 ---
 - name: "Converge"
-  hosts: "all"
+  hosts: "local"
   tasks:
-    # replace these tasks with whatever you find suitable to test
-    - name: "Copy something to test use of synchronize module"
-      ansible.builtin.copy:
-        src: "/etc/hosts"
-        dest: "/tmp/hosts-from-controller"
-        mode: 0700
 
     - name: "Include labocbz.add_haproxy_bdd_confs"
       tags:
         - "labocbz.add_haproxy_bdd_confs"
       vars:
-        add_haproxy_bdd_confs_confs_path: "{{ inv_add_haproxy_bdd_confs_confs_path }}"
-        add_haproxy_bdd_confs_configurations: "{{ inv_add_haproxy_bdd_confs_configurations }}"
+        add_haproxy_bdd_confs__confs_path: "{{ inv_add_haproxy_bdd_confs__confs_path }}"
+        add_haproxy_bdd_confs__configurations: "{{ inv_add_haproxy_bdd_confs__configurations }}"
       ansible.builtin.include_role:
         name: "labocbz.add_haproxy_bdd_confs"
