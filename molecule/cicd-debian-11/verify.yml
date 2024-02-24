@@ -2,21 +2,21 @@
 # Don't forget to keep this file updated
 # molecule/<scenario>/verify.yml
 - name: "Verify"
-  hosts: "all"
+  hosts: "cicd-debian-11"
   gather_facts: false
   tasks:
 
     - name: "Get HAProxy service current state"
-      register: add_haproxy_bdd_confs_service_status
-      failed_when: not add_haproxy_bdd_confs_service_status.status.ActiveState == 'active'
+      register: add_haproxy_bdd_confs__service_status
+      failed_when: not add_haproxy_bdd_confs__service_status.status.ActiveState == 'active'
       ansible.builtin.systemd:
         name: "haproxy"
 
     - name: "Check HAProxy confs files"
-      loop: "{{ inv_add_haproxy_bdd_confs_configurations }}"
+      loop: "{{ inv_add_haproxy_bdd_confs__configurations }}"
       loop_control:
         loop_var: configuration
       register: file_check
       failed_when: not file_check.stat.exists
       ansible.builtin.stat:
-        path: "{{ inv_add_haproxy_bdd_confs_confs_path }}/{{ configuration.name }}.cfg"
+        path: "{{ inv_add_haproxy_bdd_confs__confs_path }}/{{ configuration.name }}.cfg"

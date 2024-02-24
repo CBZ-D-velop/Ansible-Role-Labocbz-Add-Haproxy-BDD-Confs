@@ -1,4 +1,4 @@
-# Ansible role: labocbz.add_add_haproxy_bdd_confs_bdd_confs
+# Ansible role: labocbz.add_add_haproxy_bdd_confs__bdd_confs
 
 ![Licence Status](https://img.shields.io/badge/licence-MIT-brightgreen)
 ![CI Status](https://img.shields.io/badge/CI-success-brightgreen)
@@ -114,20 +114,20 @@ Some vars a required to run this role:
 
 ```YAML
 ---
-add_haproxy_bdd_confs_confs_path: "/etc/haproxy/conf.d"
-add_haproxy_bdd_confs_ssl_path: "/etc/haproxy/ssl"
+add_haproxy_bdd_confs__confs_path: "/etc/haproxy/conf.d"
+add_haproxy_bdd_confs__ssl_path: "/etc/haproxy/ssl"
 
-add_haproxy_bdd_confs_haproxy_group: "haproxy"
-add_haproxy_bdd_confs_haproxy_user: "haproxy"
+add_haproxy_bdd_confs__haproxy_group: "haproxy"
+add_haproxy_bdd_confs__haproxy_user: "haproxy"
 
-add_haproxy_bdd_confs_configurations:
+add_haproxy_bdd_confs__configurations:
   - name: "my.database.domain.tld"
     frontend:
       description: "My first database with TCP frontend address"
       bind: "127.0.0.1:10030"
       ssl: true
-      crt: "{{ add_haproxy_bdd_confs_ssl_path }}/my.https.database.domain.tld/my.https.database.domain.tld.pem.crt"
-      key: "{{ add_haproxy_bdd_confs_ssl_path }}/my.https.database.domain.tld/my.https.database.domain.tld.pem.key"
+      crt: "{{ add_haproxy_bdd_confs__ssl_path }}/my.https.database.domain.tld/my.https.database.domain.tld.pem.crt"
+      key: "{{ add_haproxy_bdd_confs__ssl_path }}/my.https.database.domain.tld/my.https.database.domain.tld.pem.key"
       mode: "tcp"
     backend:
       balance: leastconn
@@ -194,22 +194,22 @@ In order to surchage vars, you have multiples possibilities but for mains cases 
 ```YAML
 # From inventory
 ---
-inv_prepare_host_system_users:
+inv_prepare_host__system_users:
   - login: "haproxy"
     group: "haproxy"
 
-inv_add_haproxy_bdd_confs_confs_path: "/etc/haproxy/conf.d"
-inv_add_haproxy_bdd_confs_ssl_path: "/etc/haproxy/ssl"
+inv_add_haproxy_bdd_confs__confs_path: "/etc/haproxy/conf.d"
+inv_add_haproxy_bdd_confs__ssl_path: "/etc/haproxy/ssl"
 
-inv_add_haproxy_bdd_confs_configurations:
+inv_add_haproxy_bdd_confs__configurations:
   - name: "my.https.database.domain.tld"
     frontend:
       description: "My first database with TCP frontend address and HTTPS"
       bind: "127.0.0.1:10030"
       mode: "tcp"
       ssl: true
-      crt: "{{ inv_add_haproxy_bdd_confs_ssl_path }}/my.https.database.domain.tld/my.https.database.domain.tld.pem.crt"
-      key: "{{ inv_add_haproxy_bdd_confs_ssl_path }}/my.https.database.domain.tld/my.https.database.domain.tld.pem.key"
+      crt: "{{ inv_add_haproxy_bdd_confs__ssl_path }}/my.https.database.domain.tld/my.https.database.domain.tld.pem.crt"
+      key: "{{ inv_add_haproxy_bdd_confs__ssl_path }}/my.https.database.domain.tld/my.https.database.domain.tld.pem.key"
     backend:
       balance: leastconn
       options:
@@ -282,8 +282,8 @@ To run this role, you can copy the molecule/default/converge.yml playbook and ad
   tags:
     - "labocbz.add_haproxy_bdd_confs"
   vars:
-    add_haproxy_bdd_confs_confs_path: "{{ inv_add_haproxy_bdd_confs_confs_path }}"
-    add_haproxy_bdd_confs_configurations: "{{ inv_add_haproxy_bdd_confs_configurations }}"
+    add_haproxy_bdd_confs__confs_path: "{{ inv_add_haproxy_bdd_confs__confs_path }}"
+    add_haproxy_bdd_confs__configurations: "{{ inv_add_haproxy_bdd_confs__configurations }}"
   ansible.builtin.include_role:
     name: "labocbz.add_haproxy_bdd_confs"
 ```
@@ -315,6 +315,11 @@ Here you can put your change to keep a trace of your work and decisions.
 ### 2024-01-22: Added TCP CHECK
 
 * You can now define custom instruction for TCP check, like REDIS MASTER
+
+### 2024-02-24: Fix and CI
+
+* Added support for new CI base
+* Edit all vars with __
 
 ## Authors
 
