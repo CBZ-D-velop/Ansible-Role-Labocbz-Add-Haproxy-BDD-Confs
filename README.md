@@ -18,7 +18,6 @@
 
 An Ansible role create and add HAProxy BDD confs to your server.
 
-
 This role is a variant of the previous one, but it focuses on creating HAProxy configurations tailored for database services.
 
 Similar to the previous role, this variant also operates through a set of YAML-based configuration objects to define different HAProxy configurations for various database services.
@@ -320,6 +319,14 @@ Here you can put your change to keep a trace of your work and decisions.
 
 * Added support for new CI base
 * Edit all vars with __
+
+### 2024-05-19: New CI
+
+* Added Markdown lint to the CICD
+* Rework all Docker images
+* Change CICD vars convention
+* New workers
+* Removed all automation based on branch
 
 ## Authors
 
